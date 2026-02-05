@@ -35,12 +35,12 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
       
       {/* 1 & 3: Ícone do Tipo e Ações superiores */}
       <div className="p-5 pb-2 flex justify-between items-start">
-        <div className={`p-1.5 rounded-lg ${typeConfig.iconBg}`}>
+        <div className={`p-1 rounded-lg ${typeConfig.iconBg}`}>
           {getIcon()}
         </div>
         
         <div className="flex gap-1 items-center">
-          <button onClick={() => onView(post)} className="p-1.5 text-slate-400 hover:text-slate-500 transition-colors" title="Visualizar">
+          <button onClick={() => onView(post)} className="p-1.5 text-slate-400 hover:text-slate-600 transition-colors" title="Visualizar">
             <Eye className="w-4 h-4" />
           </button>
           <button onClick={() => onEdit(post)} className="p-1.5 text-slate-400 hover:text-blue-500 transition-colors" title="Editar">
@@ -66,10 +66,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
           <span className="px-3 py-1 bg-slate-100/80 text-slate-600 text-[10px] font-bold rounded-full border border-slate-200/50">
             {post.postura}
           </span>
-          <span className="px-3 py-1 bg-slate-100/80 text-slate-600 text-[10px] font-bold rounded-full border border-slate-200/50">
-            {subprefeituraName}
-          </span>
-        </div>
+          
       </div>
 
       {/* 4: Rodapé de Metadados formatado */}
