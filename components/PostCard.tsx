@@ -35,26 +35,26 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
       
       {/* 1 & 3: Ícone do Tipo e Ações superiores */}
       <div className="p-5 pb-2 flex justify-between items-start">
-        <div className={`p-2 rounded-xl ${typeConfig.iconBg}`}>
+        <div className={`p-1.5 rounded-lg ${typeConfig.iconBg}`}>
           {getIcon()}
         </div>
         
         <div className="flex gap-1 items-center">
-          <button onClick={() => onView(post)} className="p-1.5 text-slate-400 hover:text-slate-600 transition-colors" title="Visualizar">
-            <Eye className="w-5 h-5" />
+          <button onClick={() => onView(post)} className="p-1.5 text-slate-400 hover:text-slate-500 transition-colors" title="Visualizar">
+            <Eye className="w-4 h-4" />
           </button>
-          <button onClick={() => onEdit(post)} className="p-1.5 text-blue-500 hover:text-blue-700 transition-colors" title="Editar">
-            <Pencil className="w-5 h-5" />
+          <button onClick={() => onEdit(post)} className="p-1.5 text-slate-400 hover:text-blue-500 transition-colors" title="Editar">
+            <Pencil className="w-4 h-4" />
           </button>
-          <button onClick={() => { if(confirm('Deseja excluir?')) onDelete(post.id); }} className="p-1.5 text-red-500 hover:text-red-700 transition-colors" title="Excluir">
-            <Trash2 className="w-5 h-5" />
+          <button onClick={() => { if(confirm('Deseja excluir?')) onDelete(post.id); }} className="p-1.5 text-slate-400 hover:text-red-500 transition-colors" title="Excluir">
+            <Trash2 className="w-4 h-4" />
           </button>
         </div>
       </div>
 
       {/* 6: Tipografia e Títulos */}
       <div className="px-5 flex-1 flex flex-col">
-        <h3 className="font-black text-slate-800 text-base mb-2 leading-tight uppercase tracking-tight">
+        <h3 className="font-bold text-slate-800 text-base mb-2 leading-tight tracking-tight">
           {post.title}
         </h3>
         <p className="text-slate-500 text-[13px] mb-6 leading-relaxed font-medium line-clamp-4">
