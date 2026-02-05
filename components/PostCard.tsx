@@ -65,7 +65,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
           <span className="px-3 py-1 bg-slate-100/80 text-slate-600 text-[10px] font-bold rounded-full border border-slate-200/50">
             {post.postura}
           </span>
-      </div>
+        </div>
 
       {/* 4: Rodapé de Metadados formatado */}
       <div className="px-5 py-3.5 border-t border-slate-100/50 bg-white/50 flex justify-between items-center">
