@@ -40,13 +40,13 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
         
         <div className="flex gap-1 items-center">
           <button onClick={() => onView(post)} className="p-1.5 text-slate-400 hover:text-slate-700 transition-colors" title="Visualizar">
-            <Eye className="w-4 h-4" />
+            <Eye className="w-7 h-7" />
           </button>
           <button onClick={() => onEdit(post)} className="p-1.5 text-slate-400 hover:text-blue-500 transition-colors" title="Editar">
-            <Pencil className="w-4 h-4" />
+            <Pencil className="w-7 h-7" />
           </button>
           <button onClick={() => { if(confirm('Deseja excluir?')) onDelete(post.id); }} className="p-1.5 text-slate-400 hover:text-red-500 transition-colors" title="Excluir">
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-7 h-7" />
           </button>
         </div>
       </div>
