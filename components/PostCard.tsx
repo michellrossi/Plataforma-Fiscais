@@ -11,7 +11,6 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) => {
-  const subprefeituraName = SUBPREFEITURAS.find(s => s.id === post.subprefeitura)?.name || 'Desconhecida';
   const typeConfig = CONTENT_TYPES.find(c => c.value === post.type) || CONTENT_TYPES[2]; 
   const posturaStyle = POSTURA_COLORS[post.postura] || POSTURA_COLORS['Todas'];
 
@@ -54,7 +53,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
 
       {/* 6: Tipografia e Títulos */}
       <div className="px-5 flex-1 flex flex-col">
-        <h3 className="font-bold text-slate-800 text-base mb-2 leading-tight tracking-tight">
+        <h3 className="font-bold text-slate-700 text-base mb-2 leading-tight tracking-tight">
           {post.title}
         </h3>
         <p className="text-slate-500 text-[13px] mb-6 leading-relaxed font-medium line-clamp-4">
