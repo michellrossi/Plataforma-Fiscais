@@ -152,7 +152,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans text-slate-900">
       
-      {/* Topo Unificado - Sem Sidebar */}
+      {/* Topo Unificado - Simplificado */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-20 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -190,53 +190,12 @@ export default function App() {
               </button>
             </div>
           </div>
-
-          {/* Filtros embutidos no Header */}
-          <div className="mt-6 flex flex-col items-center gap-4">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar w-full justify-start md:justify-center pb-2">
-              {POSTURAS.map(postura => {
-                const isActive = selectedPostura === postura;
-                const colors = POSTURA_COLORS[postura];
-                return (
-                  <button
-                    key={postura}
-                    onClick={() => setSelectedPostura(postura)}
-                    className={`px-4 py-2 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all flex items-center gap-2 border shadow-sm ${
-                      isActive ? `${colors.active} border-transparent` : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    <span className={isActive ? 'text-white' : colors.iconColor}>
-                      {getPosturaIcon(postura)}
-                    </span>
-                    {postura}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex gap-2 overflow-x-auto no-scrollbar w-full justify-start md:justify-center border-t border-slate-100 pt-3">
-              {CONTENT_TYPES.map(type => {
-                const isActive = selectedType === type.value;
-                return (
-                  <button
-                    key={type.value}
-                    onClick={() => setSelectedType(type.value)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
-                      isActive ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-                    }`}
-                  >
-                    {type.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
         </div>
       </header>
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-8 py-8">
         
-        {/* Dashboard Stats */}
+        {/* 1. Dashboard Stats (No Topo) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
               <div>
@@ -268,7 +227,48 @@ export default function App() {
             </div>
         </div>
 
-        {/* Content Grid */}
+        {/* 2. Filtros (Abaixo dos Stats) */}
+        <div className="flex flex-col items-center gap-4 mb-8 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar w-full justify-start md:justify-center">
+              {POSTURAS.map(postura => {
+                const isActive = selectedPostura === postura;
+                const colors = POSTURA_COLORS[postura];
+                return (
+                  <button
+                    key={postura}
+                    onClick={() => setSelectedPostura(postura)}
+                    className={`px-4 py-2 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all flex items-center gap-2 border shadow-sm ${
+                      isActive ? `${colors.active} border-transparent` : 'bg-slate-50 border-slate-100 text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    <span className={isActive ? 'text-white' : colors.iconColor}>
+                      {getPosturaIcon(postura)}
+                    </span>
+                    {postura}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto no-scrollbar w-full justify-start md:justify-center border-t border-slate-100 pt-3">
+              {CONTENT_TYPES.map(type => {
+                const isActive = selectedType === type.value;
+                return (
+                  <button
+                    key={type.value}
+                    onClick={() => setSelectedType(type.value)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
+                      isActive ? 'bg-slate-800 text-white border-slate-800' : 'bg-slate-50 text-slate-500 border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    {type.label}
+                  </button>
+                );
+              })}
+            </div>
+        </div>
+
+        {/* 3. Content Grid */}
         {loading ? (
           <div className="flex flex-col justify-center items-center py-20 gap-4">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
