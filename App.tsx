@@ -158,7 +158,7 @@ export default function App() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             
             <div className="flex items-center gap-3">
-              <div className="bg-indigo-600 p-2 rounded-lg">
+              <div className="bg-indigo-600 p-2 rounded-none">
                 <LayoutGrid className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -177,12 +177,12 @@ export default function App() {
                   placeholder="Pesquisar registros..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-sm transition-all outline-none font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-none text-sm transition-all outline-none font-medium"
                 />
               </div>
               <button 
                 onClick={() => { setEditingPost(null); setIsCreateModalOpen(true); }}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all active:scale-95 font-medium text-sm whitespace-nowrap"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-none flex items-center gap-2 shadow-sm transition-all active:scale-95 font-medium text-sm whitespace-nowrap"
               >
                 <Plus className="w-5 h-5" />
                 <span className="hidden md:inline">Novo Registro</span>
@@ -197,38 +197,38 @@ export default function App() {
         
         {/* 1. Dashboard Stats (No Topo) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
+            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Contribuições</div>
                 <div className="text-2xl font-bold text-slate-800">{stats.total}</div>
               </div>
-              <div className="p-3 bg-blue-50 text-blue-500 rounded-xl"><FileText className="w-5 h-5" /></div>
+              <div className="p-3 bg-blue-50 text-blue-500 rounded-none"><FileText className="w-5 h-5" /></div>
             </div>
-            <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
+            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Colaboradores</div>
                 <div className="text-2xl font-bold text-slate-800">{stats.uniqueAuthors}</div>
               </div>
-              <div className="p-3 bg-emerald-50 text-emerald-500 rounded-xl"><Users className="w-5 h-5" /></div>
+              <div className="p-3 bg-emerald-50 text-emerald-500 rounded-none"><Users className="w-5 h-5" /></div>
             </div>
-            <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
+            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Temas Ativos</div>
                 <div className="text-2xl font-bold text-slate-800">{stats.activeThemes}</div>
               </div>
-              <div className="p-3 bg-purple-50 text-purple-500 rounded-xl"><TrendingUp className="w-5 h-5" /></div>
+              <div className="p-3 bg-purple-50 text-purple-500 rounded-none"><TrendingUp className="w-5 h-5" /></div>
             </div>
-            <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
+            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Alertas</div>
                 <div className="text-2xl font-bold text-slate-800">{stats.riskCount}</div>
               </div>
-              <div className="p-3 bg-amber-50 text-amber-500 rounded-xl"><AlertTriangle className="w-5 h-5" /></div>
+              <div className="p-3 bg-amber-50 text-amber-500 rounded-none"><AlertTriangle className="w-5 h-5" /></div>
             </div>
         </div>
 
         {/* 2. Filtros (Abaixo dos Stats) */}
-        <div className="flex flex-col items-center gap-4 mb-8 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+        <div className="flex flex-col items-center gap-4 mb-8 bg-white p-4 rounded-none border border-slate-100 shadow-sm">
             <div className="flex gap-2 overflow-x-auto no-scrollbar w-full justify-start md:justify-center">
               {POSTURAS.map(postura => {
                 const isActive = selectedPostura === postura;
@@ -237,7 +237,7 @@ export default function App() {
                   <button
                     key={postura}
                     onClick={() => setSelectedPostura(postura)}
-                    className={`px-4 py-2 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all flex items-center gap-2 border shadow-sm ${
+                    className={`px-4 py-2 rounded-none text-[13px] font-medium whitespace-nowrap transition-all flex items-center gap-2 border shadow-sm ${
                       isActive ? `${colors.active} border-transparent` : 'bg-slate-50 border-slate-100 text-slate-600 hover:bg-slate-100'
                     }`}
                   >
@@ -257,7 +257,7 @@ export default function App() {
                   <button
                     key={type.value}
                     onClick={() => setSelectedType(type.value)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
+                    className={`px-4 py-1.5 rounded-none text-xs font-bold whitespace-nowrap transition-all border ${
                       isActive ? 'bg-slate-800 text-white border-slate-800' : 'bg-slate-50 text-slate-500 border-slate-200 hover:border-slate-300'
                     }`}
                   >

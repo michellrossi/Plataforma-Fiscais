@@ -32,24 +32,20 @@
       #root {
         min-height: 100vh;
       }
+
+      /* Rich Text Reset/Styling */
+      .rich-text-content b, .rich-text-content strong {
+        font-weight: 700;
+      }
+      .rich-text-content i, .rich-text-content em {
+        font-style: italic;
+      }
+      .rich-text-content u {
+        text-decoration: underline;
+      }
     </style>
-    <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@19.0.0",
-    "react-dom": "https://esm.sh/react-dom@19.0.0",
-    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "lucide-react": "https://esm.sh/lucide-react@0.463.0",
-    "firebase/app": "https://esm.sh/firebase@11.0.2/app",
-    "firebase/firestore": "https://esm.sh/firebase@11.0.2/firestore",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "firebase/": "https://esm.sh/firebase@^12.8.0/"
-  }
-}
-</script>
-  <link rel="stylesheet" href="/index.css">
-</head>
+    <link rel="stylesheet" href="/index.css">
+  </head>
   <body>
     <div id="root"></div>
   <script type="module" src="/index.tsx"></script>

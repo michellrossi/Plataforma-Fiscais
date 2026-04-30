@@ -16,11 +16,11 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
   // Dados visuais baseados no Tipo
   const getTypeData = () => {
     switch (post.type) {
-      case 'Dica': return { icon: <Lightbulb className="w-6 h-6" />, color: 'text-amber-500', bg: 'bg-amber-50' };
-      case 'Resumo': return { icon: <BookOpen className="w-6 h-6" />, color: 'text-blue-500', bg: 'bg-blue-50' };
-      case 'Documento': return { icon: <FileText className="w-6 h-6" />, color: 'text-purple-500', bg: 'bg-purple-50' };
-      case 'Risco': return { icon: <AlertTriangle className="w-6 h-6" />, color: 'text-rose-500', bg: 'bg-rose-50' };
-      default: return { icon: <BookOpen className="w-6 h-6" />, color: 'text-blue-500', bg: 'bg-blue-50' };
+      case 'Dica': return { icon: <Lightbulb className="w-4 h-4" />, color: 'text-amber-500', bg: 'bg-amber-50' };
+      case 'Resumo': return { icon: <BookOpen className="w-4 h-4" />, color: 'text-blue-500', bg: 'bg-blue-50' };
+      case 'Documento': return { icon: <FileText className="w-4 h-4" />, color: 'text-purple-500', bg: 'bg-purple-50' };
+      case 'Risco': return { icon: <AlertTriangle className="w-4 h-4" />, color: 'text-rose-500', bg: 'bg-rose-50' };
+      default: return { icon: <BookOpen className="w-4 h-4" />, color: 'text-blue-500', bg: 'bg-blue-50' };
     }
   };
 
@@ -29,16 +29,25 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
   // Formatação robusta de data
   const formattedDate = new Intl.DateTimeFormat('pt-BR').format(new Date(post.createdAt));
 
+  // Função para remover tags HTML do conteúdo para o preview
+  const stripHtml = (htmlContent: string) => {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = htmlContent;
+    return tmp.textContent || tmp.innerText || "";
+  };
+
+  const contentPreview = stripHtml(post.content);
+
   return (
     <div 
       onClick={() => onView(post)}
-      className={`relative bg-white rounded-[24px] border-l-[6px] ${posturaStyle.border} shadow-sm flex flex-col h-full overflow-hidden transition-all hover:shadow-lg border-y border-r border-slate-100 group cursor-pointer`}
+      className={`relative bg-white rounded-none border-l-[6px] ${posturaStyle.border} shadow-sm flex flex-col h-full overflow-hidden transition-all hover:shadow-lg border-y-0 border-r-0 group cursor-pointer`}
     >
       
       {/* HEADER: ÍCONE E AÇÕES */}
       <div className="p-6 flex justify-between items-start">
         {/* Caixa de Ícone conforme Tipo */}
-        <div className={`w-12 h-12 ${typeData.bg} ${typeData.color} rounded-[16px] flex items-center justify-center shadow-sm`}>
+        <div className={`w-10 h-10 ${typeData.bg} ${typeData.color} rounded-none flex items-center justify-center shadow-sm`}>
           {typeData.icon}
         </div>
 
@@ -50,33 +59,33 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
             className="p-2 text-blue-400 hover:text-blue-600 transition-colors" 
             title="Editar"
           >
-            <Pencil className="w-4.5 h-4.5" />
+            <Pencil className="w-3.5 h-3.5" />
           </button>
           <button 
             onClick={(e) => { e.stopPropagation(); if(confirm('Excluir este registro permanentemente?')) onDelete(post.id); }} 
             className="p-2 text-rose-400 hover:text-rose-600 transition-colors" 
             title="Excluir"
           >
-            <Trash2 className="w-4.5 h-4.5" />
+            <Trash2 className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
       {/* CORPO: TEXTOS E BADGES */}
       <div className="px-6 flex-1 flex flex-col">
-        {/* Título: Negrito Máximo e Uppercase */}
-        <h3 className="font-[700] text-[#1e293b] text-[15px] mb-3 uppercase leading-tight tracking-tight">
+        {/* Título: Negrito Semirealçado e Uppercase */}
+        <h3 className="font-bold text-[#1e293b] text-[15px] mb-3 uppercase leading-tight tracking-tight">
           {post.title}
         </h3>
         
         {/* Conteúdo: Cinza com line-clamp */}
         <p className="text-[#64748b] text-[13.5px] mb-8 leading-relaxed font-medium line-clamp-4 flex-1">
-          {post.content}
+          {contentPreview}
         </p>
 
         {/* Badge de Postura */}
         <div className="flex gap-2 mb-6 flex-wrap mt-auto">
-          <span className="px-3 py-1.5 bg-slate-100 text-[#475569] text-[10px] font-bold rounded-lg border border-slate-200/50">
+          <span className="px-3 py-1.5 bg-slate-100 text-[#475569] text-[10px] font-bold rounded-none border border-slate-200/50">
             {post.postura}
           </span>
         </div>
