@@ -41,7 +41,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
   return (
     <div 
       onClick={() => onView(post)}
-      className={`relative bg-white rounded-none border-l-[6px] ${posturaStyle.border} shadow-sm flex flex-col h-full overflow-hidden transition-all hover:shadow-lg border-y-0 border-r-0 group cursor-pointer`}
+      className={`relative bg-white rounded-none shadow-sm flex flex-col h-full overflow-hidden transition-all hover:shadow-lg border border-slate-100 group cursor-pointer`}
     >
       
       {/* HEADER: ÍCONE E AÇÕES */}
@@ -92,9 +92,9 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
       </div>
 
       {/* RODAPÉ: AUTOR E DATA */}
-      <div className="px-6 py-4 border-t border-slate-50 bg-[#fafbfc]/80 flex justify-between items-center">
+      <div className={`px-6 py-4 border-t border-slate-50 ${posturaStyle.bg} flex justify-between items-center`}>
         {/* Autor */}
-        <div className="flex items-center gap-2 text-slate-400">
+        <div className={`flex items-center gap-2 ${posturaStyle.text} opacity-80`}>
           <User className="w-3.5 h-3.5" />
           <span className="text-[11px] font-bold tracking-wider uppercase truncate max-w-[120px]">
             {post.author || 'Michell Rossi'}
@@ -102,7 +102,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
         </div>
         
         {/* Data */}
-        <div className="flex items-center gap-1.5 text-slate-400">
+        <div className={`flex items-center gap-1.5 ${posturaStyle.text} opacity-80`}>
           <Calendar className="w-3.5 h-3.5" />
           <span className="text-[11px] font-bold">{formattedDate}</span>
         </div>
