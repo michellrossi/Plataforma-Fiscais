@@ -34,6 +34,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
   const quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
       [{ 'color': [] }, { 'background': [] }],
       ['clean']
     ],
