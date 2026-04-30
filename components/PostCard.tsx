@@ -29,15 +29,6 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
   // Formatação robusta de data
   const formattedDate = new Intl.DateTimeFormat('pt-BR').format(new Date(post.createdAt));
 
-  // Função para remover tags HTML do conteúdo para o preview
-  const stripHtml = (htmlContent: string) => {
-    const tmp = document.createElement("DIV");
-    tmp.innerHTML = htmlContent;
-    return tmp.textContent || tmp.innerText || "";
-  };
-
-  const contentPreview = stripHtml(post.content);
-
   return (
     <div 
       onClick={() => onView(post)}
@@ -78,10 +69,11 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
           {post.title}
         </h3>
         
-        {/* Conteúdo: Cinza com line-clamp */}
-        <p className="text-[#64748b] text-[13.5px] mb-8 leading-relaxed font-medium line-clamp-4 flex-1">
-          {contentPreview}
-        </p>
+        {/* Conteúdo: Cinza com line-clamp, renderizando HTML */}
+        <div 
+          className="text-[#64748b] text-[13.5px] mb-8 leading-relaxed font-medium line-clamp-4 flex-1 rich-text-content"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
 
         {/* Badge de Postura */}
         <div className="flex gap-2 mb-6 flex-wrap mt-auto">
