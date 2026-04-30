@@ -23,7 +23,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-slate-100 text-slate-600 hover:bg-slate-200'
   },
   'Obras': { 
-    bg: 'bg-blue-50/30',
+    bg: 'bg-blue-100',
     border: 'border-blue-500',
     text: 'text-blue-700', 
     iconColor: 'text-blue-500',
@@ -31,7 +31,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-blue-50 text-blue-600 hover:bg-blue-100'
   },
   'MPL': { 
-    bg: 'bg-emerald-50/30',
+    bg: 'bg-emerald-100',
     border: 'border-emerald-500',
     text: 'text-emerald-700', 
     iconColor: 'text-emerald-500',
@@ -39,7 +39,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
   },
   'Atividades': { 
-    bg: 'bg-amber-50/30',
+    bg: 'bg-amber-100',
     border: 'border-amber-500',
     text: 'text-amber-700', 
     iconColor: 'text-amber-500',
@@ -47,7 +47,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-amber-50 text-amber-600 hover:bg-amber-100'
   },
   'Ambulantes': { 
-    bg: 'bg-purple-50/30',
+    bg: 'bg-purple-100',
     border: 'border-purple-500',
     text: 'text-purple-700', 
     iconColor: 'text-purple-500',
@@ -55,7 +55,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-purple-50 text-purple-600 hover:bg-purple-100'
   },
   'Publicidade': { 
-    bg: 'bg-rose-50/30',
+    bg: 'bg-rose-100',
     border: 'border-rose-500',
     text: 'text-rose-700', 
     iconColor: 'text-rose-500',
@@ -63,7 +63,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-rose-50 text-rose-600 hover:bg-rose-100'
   },
   'Área Pública': { 
-    bg: 'bg-cyan-50/30',
+    bg: 'bg-cyan-100',
     border: 'border-cyan-500',
     text: 'text-cyan-700', 
     iconColor: 'text-cyan-500',
@@ -71,7 +71,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-cyan-50 text-cyan-600 hover:bg-cyan-100'
   },
   'POP': { 
-    bg: 'bg-indigo-50/30',
+    bg: 'bg-indigo-100',
     border: 'border-indigo-500',
     text: 'text-indigo-700', 
     iconColor: 'text-indigo-500',
@@ -79,7 +79,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
   },
   'Defesa Civil': { 
-    bg: 'bg-red-50/30',
+    bg: 'bg-red-100',
     border: 'border-red-500',
     text: 'text-red-700', 
     iconColor: 'text-red-500',
@@ -87,7 +87,7 @@ export const POSTURA_COLORS: Record<PosturaType, { bg: string, border: string, t
     inactive: 'bg-red-50 text-red-600 hover:bg-red-100'
   },
   'Outras': { 
-    bg: 'bg-orange-50/30',
+    bg: 'bg-orange-100',
     border: 'border-orange-500',
     text: 'text-orange-700', 
     iconColor: 'text-orange-500',

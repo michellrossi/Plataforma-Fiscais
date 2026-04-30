@@ -21,9 +21,9 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/30 backdrop-blur-[2px]" onClick={handleBackdropClick}>
-      <div className="bg-white rounded-none shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 flex flex-col">
+      <div className="bg-white rounded-none shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 flex flex-col">
         
-        <div className={`p-8 border-b border-slate-50 flex justify-between items-start`}>
+        <div className={`p-10 border-b border-slate-50 flex justify-between items-start`}>
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className={`px-3 py-1 rounded-none text-[10px] font-bold ${posturaStyle.bg} ${posturaStyle.text}`}>
@@ -33,49 +33,49 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
                 {typeConfig.label}
               </span>
             </div>
-            <h2 className={`text-2xl font-bold text-slate-900 leading-tight`}>{post.title}</h2>
+            <h2 className={`text-3xl font-bold text-slate-900 leading-tight`}>{post.title}</h2>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-none transition-colors text-slate-400">
-            <X className="w-6 h-6" />
+            <X className="w-8 h-8" />
           </button>
         </div>
         
-        <div className="p-8 space-y-8">
+        <div className="p-10 space-y-10">
           <div className="prose prose-slate max-w-none">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Informações do Relato</h4>
+            <h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest mb-4">Informações do Relato</h4>
             <div 
-              className="text-slate-600 text-base leading-relaxed font-medium rich-text-content"
+              className="text-slate-700 text-lg leading-relaxed font-medium rich-text-content"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-6 border-t border-slate-50">
             {post.address && (
               <div className="space-y-4">
-                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Endereço</h4>
-                <div className="flex items-center gap-3 text-slate-700 font-medium text-sm">
-                  <MapPin className="w-4 h-4 text-indigo-500" />
+                <h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">Endereço</h4>
+                <div className="flex items-center gap-3 text-slate-800 font-medium text-base">
+                  <MapPin className="w-5 h-5 text-indigo-500" />
                   {post.address}
                 </div>
               </div>
             )}
 
             <div className="space-y-4">
-              <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Metadados</h4>
-              <div className="flex items-center gap-3 text-slate-600 font-medium text-sm">
-                 <User className="w-4 h-4 text-slate-400" />
+              <h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">Metadados</h4>
+              <div className="flex items-center gap-3 text-slate-700 font-medium text-base">
+                 <User className="w-5 h-5 text-slate-400" />
                  {post.author || 'Anônimo'}
               </div>
-              <div className="flex items-center gap-3 text-slate-500 text-xs">
-                 <Calendar className="w-4 h-4 text-slate-300" />
+              <div className="flex items-center gap-3 text-slate-500 text-sm">
+                 <Calendar className="w-5 h-5 text-slate-300" />
                  {new Date(post.createdAt).toLocaleDateString('pt-BR')}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end">
-          <button onClick={onClose} className="px-8 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-none hover:bg-slate-100 transition-all text-sm shadow-sm">
+        <div className={`p-8 ${posturaStyle.bg} border-t border-slate-100 flex justify-end`}>
+          <button onClick={onClose} className="px-10 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-none hover:bg-slate-100 transition-all text-base shadow-sm">
             Fechar
           </button>
         </div>
