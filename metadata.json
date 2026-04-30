@@ -1,5 +1,6 @@
 {
   "name": "Fiscais SP - Base de Conhecimento",
   "description": "Uma plataforma colaborativa para fiscais da Prefeitura de São Paulo compartilharem experiências, documentos e alertas de campo organizados por Posturas e Subprefeituras.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": []
 }

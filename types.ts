@@ -1,3 +1,4 @@
+
 export type PosturaType = 
   | 'Todas'
   | 'Obras' 
@@ -23,6 +24,7 @@ export interface Post {
   type: ContentType;
   createdAt: number;
   fileName?: string; // Simulated file attachment name
+  fileUrl?: string; // URL do arquivo no Storage
 }
 
 export interface Subprefeitura {
