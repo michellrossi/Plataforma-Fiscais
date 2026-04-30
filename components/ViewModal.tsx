@@ -74,8 +74,8 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
           </div>
         </div>
 
-        <div className={`p-8 ${posturaStyle.bg} border-t border-slate-100 flex justify-end`}>
-          <button onClick={onClose} className="px-10 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-none hover:bg-slate-100 transition-all text-base shadow-sm">
+        <div className={`p-5 ${posturaStyle.bg} border-t border-slate-100 flex justify-end`}>
+          <button onClick={onClose} className="px-8 py-2 bg-white border border-slate-200 text-slate-600 font-bold rounded-none hover:bg-slate-100 transition-all text-sm shadow-sm">
             Fechar
           </button>
         </div>

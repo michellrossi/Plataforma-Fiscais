@@ -106,4 +106,5 @@ export const CONTENT_TYPES = [
   { value: 'Resumo', label: 'Resumo', color: 'bg-blue-100 text-blue-800', iconBg: 'bg-blue-100', iconText: 'text-blue-700' },
   { value: 'Risco', label: 'Risco / Alerta', color: 'bg-red-100 text-red-800', iconBg: 'bg-red-100', iconText: 'text-red-700' },
   { value: 'Documento', label: 'Documento', color: 'bg-purple-100 text-purple-800', iconBg: 'bg-purple-100', iconText: 'text-purple-700' },
+  { value: 'Links', label: 'Links', color: 'bg-emerald-100 text-emerald-800', iconBg: 'bg-emerald-100', iconText: 'text-emerald-700' },
 ];

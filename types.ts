@@ -11,7 +11,7 @@ export type PosturaType =
   | 'Defesa Civil'
   | 'Outras';
 
-export type ContentType = 'Dica' | 'Resumo' | 'Risco' | 'Documento';
+export type ContentType = 'Dica' | 'Resumo' | 'Risco' | 'Documento' | 'Links';
 
 export interface Post {
   id: string;

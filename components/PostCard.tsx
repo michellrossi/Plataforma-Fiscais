@@ -1,7 +1,7 @@
 import React from 'react';
 import { Post } from '../types';
 import { SUBPREFEITURAS, CONTENT_TYPES, POSTURA_COLORS } from '../constants';
-import { Trash2, Eye, Pencil, Calendar, User, Lightbulb, BookOpen, FileText, AlertTriangle } from 'lucide-react';
+import { Trash2, Eye, Pencil, Calendar, User, Lightbulb, BookOpen, FileText, AlertTriangle, Link } from 'lucide-react';
 
 interface PostCardProps {
   post: Post;
@@ -20,6 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
       case 'Resumo': return { icon: <BookOpen className="w-4 h-4" />, color: 'text-blue-500', bg: 'bg-blue-50' };
       case 'Documento': return { icon: <FileText className="w-4 h-4" />, color: 'text-purple-500', bg: 'bg-purple-50' };
       case 'Risco': return { icon: <AlertTriangle className="w-4 h-4" />, color: 'text-rose-500', bg: 'bg-rose-50' };
+      case 'Links': return { icon: <Link className="w-4 h-4" />, color: 'text-emerald-500', bg: 'bg-emerald-50' };
       default: return { icon: <BookOpen className="w-4 h-4" />, color: 'text-blue-500', bg: 'bg-blue-50' };
     }
   };
