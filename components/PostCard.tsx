@@ -66,13 +66,14 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
       {/* CORPO: TEXTOS E BADGES */}
       <div className="px-6 flex-1 flex flex-col">
         {/* Título: Negrito Semirealçado e Uppercase */}
-        <h3 className="font-bold text-[#1e293b] text-[15px] mb-3 uppercase leading-tight tracking-tight break-words">
+        <h3 className="font-bold text-[#1e293b] text-[15px] mb-3 uppercase leading-tight tracking-tight">
           {post.title}
         </h3>
         
         {/* Conteúdo: Cinza com line-clamp, renderizando HTML */}
         <div 
           className="text-[#64748b] text-[13.5px] mb-8 leading-relaxed font-medium line-clamp-4 flex-1 rich-text-content"
+          lang="pt-BR"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 

@@ -17,6 +17,9 @@
         margin: 0;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
       }
 
       /* Scrollbar invisível mas funcional */
@@ -35,9 +38,11 @@
 
       /* Rich Text Reset/Styling */
       .rich-text-content {
-        word-break: break-word;
         overflow-wrap: break-word;
-        word-wrap: break-word;
+        word-break: normal;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
       }
       .rich-text-content img, .rich-text-content video, .rich-text-content iframe {
         max-width: 100%;
@@ -45,7 +50,8 @@
       }
       .rich-text-content pre {
         white-space: pre-wrap;
-        word-break: break-all;
+        word-break: normal;
+        overflow-wrap: break-word;
       }
       .rich-text-content p {
         margin-bottom: 0;

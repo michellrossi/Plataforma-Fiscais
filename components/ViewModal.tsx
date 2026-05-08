@@ -33,7 +33,7 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
                 {typeConfig.label}
               </span>
             </div>
-            <h2 className={`text-3xl font-bold text-slate-900 leading-tight break-words`}>{post.title}</h2>
+            <h2 className={`text-3xl font-bold text-slate-900 leading-tight`}>{post.title}</h2>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-none transition-colors text-slate-400">
             <X className="w-8 h-8" />
@@ -45,6 +45,7 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
             <h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest mb-4">Informações do Relato</h4>
             <div 
               className="text-slate-700 text-lg leading-relaxed font-medium rich-text-content"
+              lang="pt-BR"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
@@ -53,7 +54,7 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
             {post.address && (
               <div className="space-y-4">
                 <h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">Endereço</h4>
-                <div className="flex items-center gap-3 text-slate-800 font-medium text-base break-words">
+                <div className="flex items-center gap-3 text-slate-800 font-medium text-base">
                   <MapPin className="w-5 h-5 text-indigo-500 shrink-0" />
                   {post.address}
                 </div>
@@ -62,7 +63,7 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
 
             <div className="space-y-4">
               <h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">Metadados</h4>
-              <div className="flex items-center gap-3 text-slate-700 font-medium text-base break-words">
+              <div className="flex items-center gap-3 text-slate-700 font-medium text-base">
                  <User className="w-5 h-5 text-slate-400 shrink-0" />
                  {post.author || 'Anônimo'}
               </div>
