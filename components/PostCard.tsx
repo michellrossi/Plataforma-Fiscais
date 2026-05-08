@@ -40,7 +40,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
       {/* Informações Centrais */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-3 mb-1">
-          <h3 className="font-bold text-slate-800 text-lg truncate group-hover:text-indigo-600 transition-colors">
+          <h3 className="font-semibold text-slate-800 text-lg truncate group-hover:text-indigo-600 transition-colors uppercase">
             {post.title}
           </h3>
         </div>

@@ -240,7 +240,7 @@ export default function App() {
                   <button
                     key={postura}
                     onClick={() => setSelectedPostura(postura)}
-                    className={`px-5 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-2 border ${
+                    className={`px-3 py-2 rounded-xl text-[10px] font-bold whitespace-nowrap transition-all flex items-center gap-1.5 border ${
                       isActive ? `${colors.active} border-transparent shadow-lg shadow-indigo-100 scale-105 z-10` : 'bg-slate-50 border-slate-100 text-slate-500 hover:bg-slate-100'
                     }`}
                   >
@@ -253,7 +253,7 @@ export default function App() {
               })}
             </div>
 
-            <div className="flex gap-2 overflow-x-auto no-scrollbar border-t border-slate-50 pt-6">
+            <div className="flex justify-center gap-2 overflow-x-auto no-scrollbar border-t border-slate-50 pt-6">
               {CONTENT_TYPES.map(type => {
                 const isActive = selectedType === type.value;
                 return (
@@ -302,7 +302,12 @@ export default function App() {
         isOpen={isCreateModalOpen} onClose={() => { setIsCreateModalOpen(false); setEditingPost(null); }}
         onSubmit={handleSavePost} defaultSubprefeitura={CURRENT_SUB_ID} defaultPostura={selectedPostura} initialData={editingPost}
       />
-      <ViewModal isOpen={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} post={viewingPost} />
+      <ViewModal 
+        isOpen={isViewModalOpen} 
+        onClose={() => setIsViewModalOpen(false)} 
+        post={viewingPost} 
+        onEdit={(post) => { setIsViewModalOpen(false); handleEditClick(post); }}
+      />
     </div>
   );
 }

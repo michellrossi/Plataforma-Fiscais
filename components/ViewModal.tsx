@@ -74,7 +74,7 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose, onEdit }) 
                 </span>
               </div>
               
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] tracking-tight mb-10 overflow-wrap-break-word">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-900 leading-[1.1] tracking-tight mb-10 overflow-wrap-break-word">
                 {post.title}
               </h2>
 
