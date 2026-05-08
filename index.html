@@ -37,12 +37,15 @@
       }
 
       /* Rich Text Reset/Styling */
-      .rich-text-content {
+      .rich-text-content, .rich-text-content-v2 {
         overflow-wrap: break-word;
+        word-wrap: break-word;
         word-break: normal;
+        line-break: strict;
         hyphens: auto;
         -webkit-hyphens: auto;
         -ms-hyphens: auto;
+        text-rendering: optimizeLegibility;
       }
       .rich-text-content img, .rich-text-content video, .rich-text-content iframe {
         max-width: 100%;
