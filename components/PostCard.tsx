@@ -52,10 +52,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
           </span>
           
           <div className="flex items-center gap-2">
-             <span className={`px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-500 border border-slate-200`}>
+             <span className={`px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-500 border border-slate-200`}>
               {post.type}
             </span>
-            <span className={`px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider ${posturaStyle.bg} ${posturaStyle.text} border border-current opacity-80`}>
+            <span className={`px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider ${posturaStyle.bg} ${posturaStyle.text} border border-current opacity-80`}>
               {post.postura}
             </span>
           </div>
@@ -70,7 +70,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onDelete, onEdit, onView }) =
       {/* Ações e Status à Direita */}
       <div className="flex items-center gap-4">
         <div className="hidden md:flex flex-col items-end gap-1 px-4 border-r border-slate-100">
-          <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Status</span>
+          <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Status</span>
           <span className="px-3 py-1 bg-emerald-50 text-emerald-600 text-[11px] font-bold rounded-lg border border-emerald-100">
             ATIVO
           </span>
