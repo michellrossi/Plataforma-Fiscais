@@ -35,6 +35,17 @@
 
       /* Rich Text Reset/Styling */
       .rich-text-content {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      .rich-text-content img, .rich-text-content video, .rich-text-content iframe {
+        max-width: 100%;
+        height: auto;
+      }
+      .rich-text-content pre {
+        white-space: pre-wrap;
+        word-break: break-all;
       }
       .rich-text-content p {
         margin-bottom: 0;
