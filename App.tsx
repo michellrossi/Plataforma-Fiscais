@@ -232,7 +232,7 @@ export default function App() {
           </div>
           
           <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm space-y-6">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar">
+            <div className="flex justify-center gap-2 overflow-x-auto no-scrollbar">
               {POSTURAS.map(postura => {
                 const isActive = selectedPostura === postura;
                 const colors = POSTURA_COLORS[postura];
