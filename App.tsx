@@ -21,7 +21,8 @@ import {
   Trees,
   UserCheck,
   ShieldAlert,
-  MoreHorizontal
+  MoreHorizontal,
+  ChevronDown
 } from 'lucide-react';
 
 export default function App() {
@@ -49,7 +50,6 @@ export default function App() {
           ...doc.data()
         })) as Post[];
         
-        // Filtra apenas posts da Penha caso o banco tenha dados misturados
         const penhaPosts = fetchedPosts.filter(p => p.subprefeitura === CURRENT_SUB_ID);
         setPosts(penhaPosts);
       } catch (error) {
@@ -63,13 +63,9 @@ export default function App() {
 
   const handleSavePost = async (postData: any) => {
     try {
-      // Força a subprefeitura Penha
       postData.subprefeitura = CURRENT_SUB_ID;
-
       const sanitizedData = Object.keys(postData).reduce((acc: any, key) => {
-        if (postData[key] !== undefined) {
-          acc[key] = postData[key];
-        }
+        if (postData[key] !== undefined) acc[key] = postData[key];
         return acc;
       }, {});
 
@@ -86,7 +82,6 @@ export default function App() {
       return Promise.resolve();
     } catch (e) {
       console.error("Firebase save error: ", e);
-      alert("Erro ao salvar no Firebase. Verifique sua conexão.");
       return Promise.reject(e);
     }
   };
@@ -112,11 +107,9 @@ export default function App() {
 
   const stats = useMemo(() => {
     const total = posts.length;
-    // Autores únicos como métrica interessante já que só temos 1 sub
     const uniqueAuthors = new Set(posts.map(p => p.author).filter(Boolean)).size;
     const activeThemes = new Set(posts.map(p => p.postura)).size;
     const riskCount = posts.filter(p => p.type === 'Risco').length;
-    
     return { total, uniqueAuthors, activeThemes, riskCount };
   }, [posts]);
 
@@ -124,12 +117,10 @@ export default function App() {
     return posts.filter(post => {
       const matchPostura = selectedPostura === 'Todas' || post.postura === selectedPostura;
       const matchType = selectedType === 'Todas' || post.type === selectedType;
-      // Filtro de Sub removido pois já filtramos no fetch
       const matchSearch = searchTerm === '' || 
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
         post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (post.address && post.address.toLowerCase().includes(searchTerm.toLowerCase()));
-      
       return matchPostura && matchType && matchSearch;
     });
   }, [posts, selectedPostura, selectedType, searchTerm]);
@@ -150,86 +141,98 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans text-slate-900">
+    <div className="min-h-screen bg-[#fcfdfe] flex flex-col font-sans text-slate-900 pb-20">
       
-      {/* Topo Unificado - Simplificado */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-20 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+      {/* Header Premium */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-6 py-5">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             
-            <div className="flex items-center gap-3">
-              <div className="bg-indigo-600 p-2 rounded-none">
+            <div className="flex items-center gap-4">
+              <div className="bg-indigo-600 w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200">
                 <LayoutGrid className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-none">
+                <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
                   Subprefeitura Penha
+                  <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase rounded-lg border border-indigo-100">Portal Interno</span>
                 </h1>
-                <p className="text-xs md:text-sm text-slate-500 font-medium">Base de Conhecimento e Fiscalização</p>
+                <p className="text-sm text-slate-500 font-bold opacity-70 tracking-wide uppercase text-[10px]">Base de Inteligência Colaborativa</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 w-full md:w-auto">
-              <div className="relative flex-1 md:w-96">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <div className="flex items-center gap-4 w-full md:w-auto">
+              <div className="relative flex-1 md:w-[400px]">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="text"
-                  placeholder="Pesquisar registros..."
+                  placeholder="Pesquisar por título, conteúdo ou local..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-none text-sm transition-all outline-none font-medium"
+                  className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-2xl text-sm transition-all outline-none font-semibold text-slate-700"
                 />
               </div>
               <button 
                 onClick={() => { setEditingPost(null); setIsCreateModalOpen(true); }}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-none flex items-center gap-2 shadow-sm transition-all active:scale-95 font-medium text-sm whitespace-nowrap"
+                className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-2xl flex items-center gap-2 shadow-xl shadow-slate-200 transition-all active:scale-95 font-black text-sm"
               >
                 <Plus className="w-5 h-5" />
-                <span className="hidden md:inline">Novo Registro</span>
-                <span className="md:hidden">Novo</span>
+                NOVO REGISTRO
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-8 py-8">
+      <main className="max-w-7xl mx-auto w-full px-6 pt-10">
         
-        {/* 1. Dashboard Stats (No Topo) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Contribuições</div>
-                <div className="text-2xl font-bold text-slate-800">{stats.total}</div>
+        {/* Dashboard Minimalista */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm transition-all hover:shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-blue-50 text-blue-500 rounded-2xl"><FileText className="w-5 h-5" /></div>
+                <TrendingUp className="w-4 h-4 text-emerald-500" />
               </div>
-              <div className="p-3 bg-blue-50 text-blue-500 rounded-none"><FileText className="w-5 h-5" /></div>
+              <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Relatos</div>
+              <div className="text-3xl font-black text-slate-900">{stats.total}</div>
             </div>
-            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Colaboradores</div>
-                <div className="text-2xl font-bold text-slate-800">{stats.uniqueAuthors}</div>
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm transition-all hover:shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-emerald-50 text-emerald-500 rounded-2xl"><Users className="w-5 h-5" /></div>
               </div>
-              <div className="p-3 bg-emerald-50 text-emerald-500 rounded-none"><Users className="w-5 h-5" /></div>
+              <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Relatores</div>
+              <div className="text-3xl font-black text-slate-900">{stats.uniqueAuthors}</div>
             </div>
-            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Temas Ativos</div>
-                <div className="text-2xl font-bold text-slate-800">{stats.activeThemes}</div>
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm transition-all hover:shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-purple-50 text-purple-500 rounded-2xl"><Trees className="w-5 h-5" /></div>
               </div>
-              <div className="p-3 bg-purple-50 text-purple-500 rounded-none"><TrendingUp className="w-5 h-5" /></div>
+              <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Temas</div>
+              <div className="text-3xl font-black text-slate-900">{stats.activeThemes}</div>
             </div>
-            <div className="bg-white p-4 rounded-none border border-slate-100 shadow-sm flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Alertas</div>
-                <div className="text-2xl font-bold text-slate-800">{stats.riskCount}</div>
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm transition-all hover:shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-rose-50 text-rose-500 rounded-2xl"><AlertTriangle className="w-5 h-5" /></div>
               </div>
-              <div className="p-3 bg-amber-50 text-amber-500 rounded-none"><AlertTriangle className="w-5 h-5" /></div>
+              <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Riscos</div>
+              <div className="text-3xl font-black text-slate-900 text-rose-600">{stats.riskCount}</div>
             </div>
         </div>
 
-        {/* 2. Filtros (Abaixo dos Stats) */}
-        <div className="flex flex-col items-center gap-4 mb-8 bg-white p-4 rounded-none border border-slate-100 shadow-sm">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar w-full justify-start md:justify-center">
+        {/* Filtros Modernos */}
+        <div className="flex flex-col gap-6 mb-10">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
+              <Filter className="w-5 h-5 text-indigo-600" />
+              FILTRAR REGISTROS
+            </h2>
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+              Mostrando {filteredPosts.length} resultados
+            </div>
+          </div>
+          
+          <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm space-y-6">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar">
               {POSTURAS.map(postura => {
                 const isActive = selectedPostura === postura;
                 const colors = POSTURA_COLORS[postura];
@@ -237,28 +240,28 @@ export default function App() {
                   <button
                     key={postura}
                     onClick={() => setSelectedPostura(postura)}
-                    className={`px-4 py-2 rounded-none text-[13px] font-medium whitespace-nowrap transition-all flex items-center gap-2 border shadow-sm ${
-                      isActive ? `${colors.active} border-transparent` : 'bg-slate-50 border-slate-100 text-slate-600 hover:bg-slate-100'
+                    className={`px-5 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all flex items-center gap-2 border ${
+                      isActive ? `${colors.active} border-transparent shadow-lg shadow-indigo-100 scale-105 z-10` : 'bg-slate-50 border-slate-100 text-slate-500 hover:bg-slate-100'
                     }`}
                   >
                     <span className={isActive ? 'text-white' : colors.iconColor}>
                       {getPosturaIcon(postura)}
                     </span>
-                    {postura}
+                    {postura.toUpperCase()}
                   </button>
                 );
               })}
             </div>
 
-            <div className="flex gap-2 overflow-x-auto no-scrollbar w-full justify-start md:justify-center border-t border-slate-100 pt-3">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar border-t border-slate-50 pt-6">
               {CONTENT_TYPES.map(type => {
                 const isActive = selectedType === type.value;
                 return (
                   <button
                     key={type.value}
                     onClick={() => setSelectedType(type.value)}
-                    className={`px-4 py-1.5 rounded-none text-xs font-bold whitespace-nowrap transition-all border ${
-                      isActive ? 'bg-slate-800 text-white border-slate-800' : 'bg-slate-50 text-slate-500 border-slate-200 hover:border-slate-300'
+                    className={`px-5 py-2 rounded-xl text-[10px] font-black whitespace-nowrap transition-all border uppercase tracking-widest ${
+                      isActive ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300'
                     }`}
                   >
                     {type.label}
@@ -266,22 +269,28 @@ export default function App() {
                 );
               })}
             </div>
+          </div>
         </div>
 
-        {/* 3. Content Grid */}
+        {/* Content List (Horizontal Cards) */}
         {loading ? (
-          <div className="flex flex-col justify-center items-center py-20 gap-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-            <p className="text-sm font-medium text-slate-400">Carregando dados da Penha...</p>
+          <div className="flex flex-col justify-center items-center py-32 gap-6">
+            <div className="relative">
+              <div className="w-16 h-16 rounded-full border-4 border-slate-100 border-t-indigo-600 animate-spin"></div>
+              <LayoutGrid className="absolute inset-0 m-auto w-6 h-6 text-indigo-600 animate-pulse" />
+            </div>
+            <p className="text-sm font-black text-slate-400 uppercase tracking-[0.2em]">Sincronizando Base da Penha...</p>
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center bg-white rounded-3xl border border-slate-100 border-dashed">
-            <Filter className="w-12 h-12 text-slate-200 mb-4" />
-            <h3 className="text-lg font-bold text-slate-700">Nenhum registro encontrado</h3>
-            <p className="text-slate-400 text-sm font-medium mt-1">Seja o primeiro a colaborar com a equipe.</p>
+          <div className="flex flex-col items-center justify-center py-32 text-center bg-white rounded-[3rem] border-2 border-slate-100 border-dashed">
+            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+              <Filter className="w-10 h-10 text-slate-200" />
+            </div>
+            <h3 className="text-xl font-black text-slate-800">Nenhum registro encontrado</h3>
+            <p className="text-slate-400 text-sm font-bold mt-2 uppercase tracking-wide">Tente ajustar seus filtros ou busca</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
+          <div className="flex flex-col gap-4 max-w-5xl mx-auto pb-32">
             {filteredPosts.map(post => (
               <PostCard key={post.id} post={post} onDelete={handleDeletePost} onEdit={handleEditClick} onView={handleViewClick} />
             ))}

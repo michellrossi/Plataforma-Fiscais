@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { Post, PosturaType, ContentType } from '../types';
 import { POSTURAS, CONTENT_TYPES } from '../constants';
-import { X, Save, Loader2, MapPin, User } from 'lucide-react';
+import { X, Save, Loader2, MapPin, User, ChevronDown } from 'lucide-react';
 
 interface CreateModalProps {
   isOpen: boolean;
@@ -109,39 +109,60 @@ const CreateModal: React.FC<CreateModalProps> = ({
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      setSelectedFile(file);
-      setFileName(file.name);
-    }
-  };
-
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-[2px]" onClick={handleBackdropClick}>
-      <div ref={modalRef} className="bg-white rounded-none shadow-xl w-full max-w-xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 border border-slate-100">
-        <div className="p-6 border-b border-slate-50 flex justify-between items-center sticky top-0 bg-white z-10">
-          <h2 className="text-xl font-semibold text-slate-800">{initialData ? 'Editar Registro' : 'Novo Registro - Penha'}</h2>
-          <button onClick={onClose} className="p-2 hover:bg-slate-50 rounded-none transition-colors text-slate-400"><X className="w-5 h-5" /></button>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md transition-all duration-300" onClick={handleBackdropClick}>
+      <div ref={modalRef} className="bg-white rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.3)] w-full max-w-3xl max-h-[92vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300 border border-slate-100 flex flex-col">
+        <div className="p-8 border-b border-slate-50 flex justify-between items-center bg-white z-10 shrink-0">
+          <div>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">{initialData ? 'Editar Registro' : 'Novo Registro'}</h2>
+            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Unidade: Subprefeitura Penha</p>
+          </div>
+          <button onClick={onClose} className="p-3 bg-slate-50 hover:bg-slate-100 rounded-2xl transition-all text-slate-400"><X className="w-6 h-6" /></button>
         </div>
         
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
-          <div className="grid grid-cols-1 gap-4">
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
-              <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Postura</label>
-              <select value={postura} onChange={(e) => setPostura(e.target.value as PosturaType)} className="w-full p-3 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 focus:ring-indigo-500 outline-none">
-                {POSTURAS.filter(p => p !== 'Todas').map(p => <option key={p} value={p}>{p}</option>)}
-              </select>
+              <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-3">Tema da Fiscalização</label>
+              <div className="relative">
+                <select 
+                  value={postura} 
+                  onChange={(e) => setPostura(e.target.value as PosturaType)} 
+                  className="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-indigo-500 rounded-2xl text-sm font-bold text-slate-700 outline-none transition-all appearance-none cursor-pointer"
+                >
+                  {POSTURAS.filter(p => p !== 'Todas').map(p => <option key={p} value={p}>{p}</option>)}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-3">Relator (Responsável)</label>
+              <div className="relative">
+                <User className="absolute left-4 top-4 w-4 h-4 text-slate-400" />
+                <input 
+                  type="text" 
+                  required 
+                  value={author} 
+                  onChange={(e) => setAuthor(e.target.value)} 
+                  placeholder="Seu nome..." 
+                  className="w-full p-4 pl-12 bg-slate-50 border-2 border-transparent focus:border-indigo-500 rounded-2xl text-sm font-bold text-slate-700 outline-none transition-all" 
+                />
+              </div>
             </div>
           </div>
 
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-3">Tipo de Conteúdo</label>
-            <div className="flex flex-wrap gap-2">
+            <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">Classificação do Conteúdo</label>
+            <div className="flex flex-wrap gap-3">
               {CONTENT_TYPES.filter(t => t.value !== 'Todas').map(ct => (
-                <button key={ct.value} type="button" onClick={() => setType(ct.value as ContentType)} className={`px-4 py-2 rounded-none text-xs font-medium transition-all ${type === ct.value ? 'bg-slate-800 text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>
+                <button 
+                  key={ct.value} 
+                  type="button" 
+                  onClick={() => setType(ct.value as ContentType)} 
+                  className={`px-6 py-3 rounded-2xl text-xs font-black transition-all uppercase tracking-widest border-2 ${type === ct.value ? 'bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-200' : 'bg-white border-slate-100 text-slate-400 hover:border-slate-200'}`}
+                >
                   {ct.label}
                 </button>
               ))}
@@ -149,65 +170,101 @@ const CreateModal: React.FC<CreateModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Assunto / Título</label>
-            <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título breve do registro..." className="w-full p-3 bg-slate-50 border-none rounded-none text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-shadow font-medium" />
+            <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-3">Assunto Principal</label>
+            <input 
+              type="text" 
+              required 
+              value={title} 
+              onChange={(e) => setTitle(e.target.value)} 
+              placeholder="Ex: Irregularidade na Av. Penha de França..." 
+              className="w-full p-5 bg-slate-50 border-2 border-transparent focus:border-indigo-500 rounded-2xl text-lg font-bold text-slate-800 outline-none transition-all placeholder:text-slate-300" 
+            />
           </div>
 
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Descrição Detalhada</label>
-            <div className="bg-slate-50 rounded-none overflow-hidden min-h-[300px] border border-slate-100 focus-within:ring-2 focus-within:ring-indigo-500">
+            <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-3">Descrição Detalhada</label>
+            <div className="bg-slate-50 rounded-3xl overflow-hidden min-h-[350px] border-2 border-transparent focus-within:border-indigo-500 transition-all">
               <ReactQuill 
                 theme="snow" 
                 value={content} 
                 onChange={setContent} 
                 modules={quillModules}
-                placeholder="Descreva os detalhes aqui..."
-                className="h-[250px] font-medium"
+                placeholder="Descreva aqui todas as observações pertinentes..."
+                className="h-[280px] font-semibold text-slate-700"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Endereço (Opcional)</label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
-                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Rua, Número..." className="w-full p-3 pl-10 bg-slate-50 border-none rounded-none text-sm focus:ring-2 focus:ring-indigo-500 outline-none font-medium" />
-              </div>
+          <div>
+            <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-3 text-indigo-600">Localização do Evento (Opcional)</label>
+            <div className="relative">
+              <MapPin className="absolute left-5 top-5 w-5 h-5 text-indigo-400" />
+              <input 
+                type="text" 
+                value={address} 
+                onChange={(e) => setAddress(e.target.value)} 
+                placeholder="Logradouro, número, ponto de referência..." 
+                className="w-full p-5 pl-14 bg-indigo-50/50 border-2 border-transparent focus:border-indigo-500 rounded-2xl text-sm font-bold text-slate-700 outline-none transition-all placeholder:text-indigo-200" 
+              />
             </div>
-            <div>
-              <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2 text-indigo-600">Autor (Obrigatório)</label>
-              <div className="relative">
-                <User className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
-                <input type="text" required value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Seu nome..." className="w-full p-3 pl-10 bg-slate-50 border-none rounded-none text-sm focus:ring-2 focus:ring-indigo-500 outline-none font-medium" />
-              </div>
-            </div>
-          </div>
-
-          {errorMessage && (
-            <div className="text-red-500 text-xs font-semibold px-2">
-              {errorMessage}
-            </div>
-          )}
-
-          <div className="pt-4 flex gap-4">
-            <button type="button" onClick={onClose} disabled={isSubmitting} className="flex-1 py-3.5 text-slate-400 font-medium rounded-none hover:bg-slate-50 transition-colors disabled:opacity-50">Cancelar</button>
-            <button type="submit" disabled={isSubmitting} className="flex-1 py-3.5 bg-indigo-600 text-white font-medium rounded-none hover:bg-indigo-700 shadow-md flex items-center justify-center gap-2 disabled:opacity-70 transition-all">
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" /> 
-                  Processando...
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4" /> 
-                  {initialData ? 'Salvar Alterações' : 'Publicar Agora'}
-                </>
-              )}
-            </button>
           </div>
         </form>
+
+        <div className="p-8 bg-slate-50 border-t border-slate-100 flex gap-4 shrink-0">
+          <button 
+            type="button" 
+            onClick={onClose} 
+            disabled={isSubmitting} 
+            className="px-8 py-4 text-slate-400 font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-slate-100 transition-all disabled:opacity-50"
+          >
+            DESCARTAR
+          </button>
+          <button 
+            onClick={(e) => handleSubmit(e as any)}
+            disabled={isSubmitting} 
+            className="flex-1 py-4 bg-indigo-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:bg-indigo-700 shadow-xl shadow-indigo-100 flex items-center justify-center gap-3 disabled:opacity-70 transition-all active:scale-95"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" /> 
+                PROCESSANDO...
+              </>
+            ) : (
+              <>
+                <Save className="w-5 h-5" /> 
+                {initialData ? 'SALVAR ALTERAÇÕES' : 'PUBLICAR REGISTRO'}
+              </>
+            )}
+          </button>
+        </div>
       </div>
+      
+      <style dangerouslySetInnerHTML={{ __html: `
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #e2e8f0;
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #cbd5e1;
+        }
+        .ql-toolbar.ql-snow {
+          border: none !important;
+          background: #f1f5f9;
+          padding: 12px !important;
+        }
+        .ql-container.ql-snow {
+          border: none !important;
+        }
+        .ql-editor {
+          padding: 20px !important;
+        }
+      `}} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Post } from '../types';
 import { POSTURA_COLORS, CONTENT_TYPES } from '../constants';
-import { X, MapPin, User, Calendar, Tag, Info, Share2, Clock } from 'lucide-react';
+import { X, MapPin, User, Calendar, Tag, Clock, Maximize2, Share2, Printer } from 'lucide-react';
 
 interface ViewModalProps {
   post: Post | null;
@@ -21,161 +21,140 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose }) => {
 
   return (
     <div 
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-slate-900/60 backdrop-blur-md transition-all duration-300"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-6 bg-slate-900/80 backdrop-blur-xl transition-all duration-500"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] w-full max-w-5xl max-h-[92vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col md:flex-row relative">
+      <div className="bg-white rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.4)] w-full max-w-[96vw] h-[94vh] overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-500 flex flex-col relative">
         
-        {/* Botão de Fechar Flutuante (Mobile) */}
-        <button 
-          onClick={onClose} 
-          className="absolute top-4 right-4 z-50 p-2 bg-white/80 backdrop-blur-sm hover:bg-slate-100 rounded-full transition-all text-slate-500 md:hidden border border-slate-200"
-        >
-          <X className="w-6 h-6" />
-        </button>
+        {/* Barra de Ações Superior Estilo Browser */}
+        <div className="flex items-center justify-between px-8 py-4 border-b border-slate-100 bg-slate-50/50">
+          <div className="flex items-center gap-4">
+            <div className="flex gap-1.5 mr-4">
+              <div className="w-3 h-3 rounded-full bg-rose-400"></div>
+              <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+              <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1 bg-white rounded-lg border border-slate-200 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+              <Maximize2 className="w-3 h-3" /> Visualização Expandida
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button className="p-2.5 hover:bg-white hover:shadow-sm rounded-xl transition-all text-slate-400 hover:text-slate-600 border border-transparent hover:border-slate-200">
+              <Printer className="w-5 h-5" />
+            </button>
+            <button className="p-2.5 hover:bg-white hover:shadow-sm rounded-xl transition-all text-slate-400 hover:text-slate-600 border border-transparent hover:border-slate-200">
+              <Share2 className="w-5 h-5" />
+            </button>
+            <div className="w-px h-6 bg-slate-200 mx-2"></div>
+            <button 
+              onClick={onClose} 
+              className="p-2.5 bg-slate-900 text-white hover:bg-slate-800 rounded-xl transition-all shadow-lg shadow-slate-200 active:scale-95"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
 
-        {/* Lado Esquerdo: Conteúdo Principal */}
-        <div className="flex-1 overflow-y-auto p-6 md:p-12 lg:p-16 custom-scrollbar">
-          <div className="max-w-3xl mx-auto">
-            <header className="mb-10">
-              <div className="flex flex-wrap gap-3 mb-6">
-                <span className={`px-4 py-1.5 rounded-full text-[11px] font-extrabold uppercase tracking-widest ${posturaStyle.bg} ${posturaStyle.text} border border-current opacity-90`}>
+        <div className="flex-1 overflow-y-auto custom-scrollbar flex flex-col">
+          {/* Header de Título - Bem Largo */}
+          <div className="pt-16 pb-10 px-8 md:px-24 lg:px-48 border-b border-slate-50">
+             <div className="flex items-center gap-3 mb-8">
+                <span className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] ${posturaStyle.bg} ${posturaStyle.text} border border-current`}>
                   {post.postura}
                 </span>
-                <span className={`px-4 py-1.5 rounded-full text-[11px] font-extrabold uppercase tracking-widest bg-slate-100 text-slate-600 border border-slate-200`}>
+                <span className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] bg-slate-100 text-slate-500 border border-slate-200`}>
                   {typeConfig.label}
                 </span>
               </div>
               
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-6 tracking-tight overflow-wrap-anywhere">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight mb-10 overflow-wrap-break-word">
                 {post.title}
               </h2>
 
-              <div className="flex items-center gap-6 text-slate-400 text-sm font-medium border-y border-slate-100 py-4">
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  <span>{post.author || 'Anônimo'}</span>
+              {/* Mini Barra de Info (Compacta) */}
+              <div className="flex flex-wrap items-center gap-x-10 gap-y-4 py-6 border-y border-slate-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+                    <User className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Relator</p>
+                    <p className="text-sm font-bold text-slate-800">{post.author || 'Anônimo'}</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>{new Date(post.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
-                </div>
-              </div>
-            </header>
 
-            <article className="prose prose-slate prose-lg max-w-none">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+                    <Calendar className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Data do Registro</p>
+                    <p className="text-sm font-bold text-slate-800">
+                      {new Date(post.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
+                    </p>
+                  </div>
+                </div>
+
+                {post.address && (
+                  <div className="flex items-center gap-3 lg:ml-auto">
+                    <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-500">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Localização</p>
+                      <p className="text-sm font-bold text-slate-800 truncate max-w-[200px] md:max-w-[400px]">
+                        {post.address}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+          </div>
+
+          {/* ÁREA DO TEXTO - Ocupando o máximo de espaço */}
+          <div className="flex-1 px-8 md:px-24 lg:px-48 py-16">
+            <article className="prose prose-slate prose-2xl max-w-none">
               <div 
-                className="text-slate-700 text-xl leading-relaxed font-normal rich-text-content-v2"
+                className="text-slate-800 text-2xl md:text-3xl leading-[1.6] font-normal rich-text-content-v3"
                 lang="pt-BR"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </article>
-
-            {post.address && (
-              <div className="mt-16 p-8 bg-slate-50 rounded-2xl border border-slate-100 group transition-all hover:bg-slate-100/50">
-                <div className="flex items-center gap-3 mb-4 text-indigo-600">
-                  <MapPin className="w-6 h-6" />
-                  <h4 className="text-sm font-black uppercase tracking-widest">Localização do Evento</h4>
-                </div>
-                <p className="text-slate-800 text-lg font-semibold leading-snug overflow-wrap-anywhere">
-                  {post.address}
-                </p>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Lado Direito: Barra Lateral de Info (Desktop) */}
-        <div className="w-full md:w-80 lg:w-96 bg-slate-50 border-l border-slate-100 flex flex-col shrink-0">
-          <div className="hidden md:flex p-6 justify-end">
-            <button onClick={onClose} className="p-3 hover:bg-slate-200 rounded-2xl transition-all text-slate-400 hover:text-slate-600">
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
-          <div className="p-8 md:p-10 space-y-12 flex-1 overflow-y-auto">
-            <section>
-              <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-                <Tag className="w-3.5 h-3.5" /> Classificação
-              </h4>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-2 border-b border-slate-200/50">
-                  <span className="text-slate-500 text-sm font-medium">Postura</span>
-                  <span className={`font-bold text-sm ${posturaStyle.text}`}>{post.postura}</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-slate-200/50">
-                  <span className="text-slate-500 text-sm font-medium">Tipo</span>
-                  <span className="text-slate-800 font-bold text-sm">{typeConfig.label}</span>
-                </div>
-              </div>
-            </section>
-
-            <section>
-              <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-                <Info className="w-3.5 h-3.5" /> Detalhes do Registro
-              </h4>
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
-                    <Clock className="w-5 h-5 text-slate-400" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase">Horário</p>
-                    <p className="text-sm font-bold text-slate-800">
-                      {new Date(post.createdAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
-                    <User className="w-5 h-5 text-slate-400" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase">Relator</p>
-                    <p className="text-sm font-bold text-slate-800">{post.author || 'Anônimo'}</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <div className="pt-8">
-               <button className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm rounded-2xl transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-3 active:scale-95">
-                 <Share2 className="w-4 h-4" />
-                 COMPARTILHAR
-               </button>
-            </div>
-          </div>
-
-          <div className="p-8 bg-white border-t border-slate-100 mt-auto hidden md:block">
-            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center">
-              Fiscais SP • {new Date().getFullYear()}
-            </p>
-          </div>
+        {/* Rodapé Slim */}
+        <div className="px-8 py-6 bg-slate-50 border-t border-slate-100 flex justify-between items-center text-slate-400 font-bold text-[10px] uppercase tracking-[0.3em]">
+           <span>Fiscais SP • Inteligência de Campo</span>
+           <div className="flex items-center gap-4">
+             <span className="flex items-center gap-2"><Clock className="w-3 h-3" /> Última atualização: {new Date().toLocaleDateString()}</span>
+           </div>
         </div>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        .overflow-wrap-anywhere {
+        .rich-text-content-v3 {
           overflow-wrap: break-word;
-          word-break: normal;
-        }
-        .rich-text-content-v2 {
-          overflow-wrap: break-word;
+          word-wrap: break-word;
           word-break: normal;
           hyphens: auto;
         }
         .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
+          width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: #e2e8f0;
-          border-radius: 10px;
+          border-radius: 20px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #cbd5e1;
+        }
+        @media (max-width: 768px) {
+          .prose-2xl { font-size: 1.25rem; }
         }
       `}} />
     </div>
