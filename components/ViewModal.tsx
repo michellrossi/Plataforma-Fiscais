@@ -15,6 +15,13 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose, onEdit }) 
     if (e.target === e.currentTarget) onClose();
   };
 
+  // Substitui hífens normais por hífens não-quebráveis (&#8209;) quando entre letras
+  // para evitar que palavras com hífen (ex: "Trata-se") quebrem de linha de forma feia.
+  const formatPostContent = (htmlContent: string) => {
+    if (!htmlContent) return '';
+    return htmlContent.replace(/(\p{L})(-)(\p{L})/gu, '$1&#8209;$3');
+  };
+
   if (!isOpen || !post) return null;
 
   const typeConfig = CONTENT_TYPES.find(c => c.value === post.type) || CONTENT_TYPES[1];
@@ -124,7 +131,7 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose, onEdit }) 
               <div 
                 className="text-slate-800 text-xl md:text-2xl leading-[1.7] font-normal rich-text-content-v3"
                 lang="pt-BR"
-                dangerouslySetInnerHTML={{ __html: post.content }}
+                dangerouslySetInnerHTML={{ __html: formatPostContent(post.content) }}
               />
             </article>
           </div>
@@ -136,15 +143,23 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose, onEdit }) 
            <div className="flex items-center gap-4">
              <span className="flex items-center gap-2"><Clock className="w-3 h-3" /> Atualizado: {new Date().toLocaleDateString()}</span>
            </div>
-        </div>
+         </div>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        .rich-text-content-v3 {
-          overflow-wrap: break-word;
-          word-break: normal;
-          hyphens: none;
-          white-space: normal;
+        .rich-text-content-v3,
+        .rich-text-content-v3 p,
+        .rich-text-content-v3 span,
+        .rich-text-content-v3 li,
+        .rich-text-content-v3 strong,
+        .rich-text-content-v3 b {
+          overflow-wrap: break-word !important;
+          word-break: keep-all !important;
+          hyphens: none !important;
+          -webkit-hyphens: none !important;
+          -moz-hyphens: none !important;
+          -ms-hyphens: none !important;
+          white-space: normal !important;
         }
         /* Garantir que as listas e parágrafos do Quill sejam exibidos corretamente */
         .rich-text-content-v3 p { margin-bottom: 1.5rem; }
