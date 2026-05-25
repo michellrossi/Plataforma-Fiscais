@@ -290,7 +290,7 @@ export default function App() {
             <p className="text-slate-400 text-sm font-bold mt-2 uppercase tracking-wide">Tente ajustar seus filtros ou busca</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-4 max-w-5xl mx-auto pb-32">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto pb-32">
             {filteredPosts.map(post => (
               <PostCard key={post.id} post={post} onDelete={handleDeletePost} onEdit={handleEditClick} onView={handleViewClick} />
             ))}
