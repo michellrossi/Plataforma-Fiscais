@@ -142,9 +142,9 @@ const ViewModal: React.FC<ViewModalProps> = ({ post, isOpen, onClose, onEdit }) 
       <style dangerouslySetInnerHTML={{ __html: `
         .rich-text-content-v3 {
           overflow-wrap: break-word;
-          word-wrap: break-word;
           word-break: normal;
-          hyphens: auto;
+          hyphens: none;
+          white-space: normal;
         }
         /* Garantir que as listas e parágrafos do Quill sejam exibidos corretamente */
         .rich-text-content-v3 p { margin-bottom: 1.5rem; }
